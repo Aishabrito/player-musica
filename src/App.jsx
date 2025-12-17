@@ -1,12 +1,12 @@
-import Player from "./componentes/Player";
+import { Routes, Route } from "react-router-dom";
+import Inicial from "./pages/Inicial";
+import PlayerPage from "./pages/PlayerPage";
 
-function App() {
+export default function App() {
   return (
-    <div className="App" style={{ fontFamily: "sans-serif" }}>
-      <h1 style={{ textAlign: "center", marginTop: "2rem" }}>Music Player</h1>
-      <Player />
-    </div>
+    <Routes>
+      <Route path="/" element={<Inicial />} />
+      <Route path="/player" element={<PlayerPage />} />
+    </Routes>
   );
 }
-
-export default App;

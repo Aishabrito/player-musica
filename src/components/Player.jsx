@@ -4,49 +4,71 @@ import musica2 from "../assets/musica2.mp3";
 import musica3 from "../assets/musica3.mp3";
 
 const musicas = [
-  { nome: "Musica 1", artista: "Artista 1", src: musica1 },
-  { nome: "Musica 2", artista: "Artista 2", src: musica2 },
-  { nome: "Musica 3", artista: "Artista 3", src: musica3 },
+  {
+    nome: "Musica 1",
+    artista: "Artista 1",
+    src: musica1,
+    capa: "https://via.placeholder.com/300x300.png?text=Musica+1",
+  },
+  {
+    nome: "Musica 2",
+    artista: "Artista 2",
+    src: musica2,
+    capa: "https://via.placeholder.com/300x300.png?text=Musica+2",
+  },
+  {
+    nome: "Musica 3",
+    artista: "Artista 3",
+    src: musica3,
+    capa: "https://via.placeholder.com/300x300.png?text=Musica+3",
+  },
 ];
 
 export default function Player() {
   const [index, setIndex] = useState(0);
   const [tocando, setTocando] = useState(false);
   const [tempo, setTempo] = useState(0);
-  const [duração, setDuração] = useState(0);
+  const [duracao, setDuracao] = useState(0);
   const [shuffle, setShuffle] = useState(false);
 
-  const audioRef = useRef(new Audio(musicas[index].src));
+  const audioRef = useRef(new Audio(musicas[0].src));
 
+  // Atualiza o audio quando muda a música ou play/pause
   useEffect(() => {
-    audioRef.current.pause();
-    audioRef.current = new Audio(musicas[index].src);
-    audioRef.current.onloadedmetadata = () => setDuração(audioRef.current.duration);
-    audioRef.current.ontimeupdate = () => setTempo(audioRef.current.currentTime);
-    if (tocando) audioRef.current.play();
-  }, [index]);
+    const audio = audioRef.current;
+    audio.src = musicas[index].src;
 
-  const togglePlay = () => {
-    if (tocando) audioRef.current.pause();
-    else audioRef.current.play();
-    setTocando(!tocando);
-  };
+    audio.onloadedmetadata = () => setDuracao(audio.duration);
+    audio.ontimeupdate = () => setTempo(audio.currentTime);
+
+    if (tocando) {
+      audio.play().catch(() => setTocando(false));
+    } else {
+      audio.pause();
+    }
+
+    return () => audio.pause();
+  }, [index, tocando]);
+
+  const togglePlay = () => setTocando(!tocando);
 
   const next = () => {
     if (shuffle) {
       let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * musicas.length);
-      } while (randomIndex === index);
+      if (musicas.length > 1) {
+        do {
+          randomIndex = Math.floor(Math.random() * musicas.length);
+        } while (randomIndex === index);
+      } else {
+        randomIndex = index;
+      }
       setIndex(randomIndex);
     } else {
       setIndex((index + 1) % musicas.length);
     }
   };
 
-  const prev = () => {
-    setIndex((index - 1 + musicas.length) % musicas.length);
-  };
+  const prev = () => setIndex((index - 1 + musicas.length) % musicas.length);
 
   const toggleShuffle = () => setShuffle(!shuffle);
 
@@ -57,7 +79,12 @@ export default function Player() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-gray-100 rounded-2xl shadow-lg text-center">
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg text-center">
+      <img
+        src={musicas[index].capa}
+        alt={musicas[index].nome}
+        className="w-64 h-64 mx-auto rounded-xl mb-4 object-cover"
+      />
       <h2 className="text-2xl font-bold">{musicas[index].nome}</h2>
       <p className="text-gray-600 mb-4">{musicas[index].artista}</p>
 
@@ -85,11 +112,11 @@ export default function Player() {
       <div className="mb-2">
         <progress
           value={tempo}
-          max={duração}
+          max={duracao}
           className="w-full h-2 rounded-full overflow-hidden"
         />
         <div className="text-sm text-gray-600 mt-1">
-          {formatTime(tempo)} / {formatTime(duração)}
+          {formatTime(tempo)} / {formatTime(duracao)}
         </div>
       </div>
 
