@@ -1,9 +1,10 @@
+import Player from "./componentes/Player";
+
 function App() {
   return (
-    <div className="w-screen h-screen bg-blue-600 flex items-center justify-center">
-      <h1 className="text-white text-4xl font-bold">
-        Tailwind OK
-      </h1>
+    <div className="App" style={{ fontFamily: "sans-serif" }}>
+      <h1 style={{ textAlign: "center", marginTop: "2rem" }}>Music Player</h1>
+      <Player />
     </div>
   );
 }
