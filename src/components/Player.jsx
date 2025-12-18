@@ -1,36 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-// Importando os ícones da biblioteca Lucide React
 import { Play, Pause, Rewind, FastForward, Shuffle } from "lucide-react";
-
-import musica1 from "../assets/musica1.mp3";
-import musica2 from "../assets/musica2.mp3";
-import musica3 from "../assets/musica3.mp3";
-import capa1 from "../assets/capa1.jpg";
-import capa2 from "../assets/capa2.jpg";
-import capa3 from "../assets/capa3.jpg";
-
-const musicas = [
-  {
-    nome: "Echoes Between Walls",
-    artista: "Moon Static",
-    src: musica1,
-    capa: capa1
-  },
-  {
-    nome: "Lights Still On at 3AM",
-    artista: "Empty Hallways",
-    src: musica2,
-    capa: capa2
-  },
-  {
-    nome: "Letters I Never Sent",
-    artista: "Slow Tide",
-    src: musica3,
-    capa: capa3,
-  },
-];
+import { musicasData } from "../data/musicas";
 
 export default function Player() {
+  const musicas = musicasData;
+
   const [index, setIndex] = useState(0);
   const [tocando, setTocando] = useState(false);
   const [tempo, setTempo] = useState(0);
@@ -166,12 +140,12 @@ export default function Player() {
         onClick={toggleShuffle}
         className={`flex items-center justify-center gap-2 mx-auto px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition ${
           shuffle 
-            ? "bg-green-800/80 text-white shadow-purple-500/50" 
+            ? "bg-green-800/80 text-white shadow-green-500/50" 
             : "text-gray-400 hover:text-white bg-white/5"
         }`}
       >
         <Shuffle size={14} />
-        Aleatório : {shuffle ? "ON" : "OFF"}
+        Aleatório: {shuffle ? "ON" : "OFF"}
       </button>
     </div>
   );
