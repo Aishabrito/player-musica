@@ -12,6 +12,9 @@ export default function Player() {
   const [shuffle, setShuffle] = useState(false);
 
   const audioRef = useRef(new Audio(musicas[0].src));
+  
+  // referência para o elemento HTML da barra
+  const progressBarRef = useRef(null);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -19,25 +22,25 @@ export default function Player() {
 
     audio.onloadedmetadata = () => setDuracao(audio.duration);
     audio.ontimeupdate = () => setTempo(audio.currentTime);
-
+// Lógica de Play/Pause
     if (tocando) {
       audio.play().catch(() => setTocando(false));
     } else {
       audio.pause();
     }
-
+// Se sair da tela, pausa a música 
     return () => audio.pause();
   }, [index, tocando]);
 
   const togglePlay = () => setTocando(!tocando);
-
+// Lógica de Próxima Música
   const next = () => {
     if (shuffle) {
       let randomIndex;
       if (musicas.length > 1) {
         do {
           randomIndex = Math.floor(Math.random() * musicas.length);
-        } while (randomIndex === index);
+        } while (randomIndex === index);// Repete o sorteio se cair na mesma música
       } else {
         randomIndex = index;
       }
@@ -46,10 +49,24 @@ export default function Player() {
       setIndex((index + 1) % musicas.length);
     }
   };
-
+// Lógica de Voltar Música
   const prev = () => setIndex((index - 1 + musicas.length) % musicas.length);
-
+// Botão Aleatório Liga ou desliga o modo de embaralhar
   const toggleShuffle = () => setShuffle(!shuffle);
+
+  //  Função que calcula onde você clicou e muda o tempo da música
+  const handleSeek = (e) => {
+    const rect = progressBarRef.current.getBoundingClientRect();
+    // Calcula a posição do clique relativo ao início da barra
+    const clickX = e.clientX - rect.left; 
+    const width = rect.width;
+  
+    const newTime = (clickX / width) * duracao;
+
+    // Atualiza o áudio e o estado visual
+    audioRef.current.currentTime = newTime;
+    setTempo(newTime);
+  };
 
   const formatTime = (segundos) => {
     const min = Math.floor(segundos / 60);
@@ -90,9 +107,14 @@ export default function Player() {
 
       {/* Barra de progresso */}
       <div className="mb-6 px-2">
-        <div className="w-full bg-gray-600/50 rounded-full h-1.5 cursor-pointer">
+        <div 
+          //Conectaa referência e o evento de clique aqui
+          ref={progressBarRef}
+          onClick={handleSeek}
+          className="w-full bg-gray-600/50 rounded-full h-1.5 cursor-pointer hover:h-2 transition-all"
+        >
            <div 
-             className="bg-green-800 h-1.5 rounded-full relative" 
+             className="bg-green-800 h-full rounded-full relative pointer-events-none" 
              style={{ width: `${(tempo / duracao) * 100}%` }}
            >
               <div className="absolute right-0 -top-1 w-3 h-3 bg-white rounded-full shadow"></div>
