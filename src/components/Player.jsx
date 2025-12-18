@@ -2,25 +2,28 @@ import { useState, useRef, useEffect } from "react";
 import musica1 from "../assets/musica1.mp3";
 import musica2 from "../assets/musica2.mp3";
 import musica3 from "../assets/musica3.mp3";
+import capa1 from "../assets/capa1.jpg";
+import capa2 from "../assets/capa2.jpg";
+import capa3 from "../assets/capa3.jpg";
 
 const musicas = [
   {
     nome: "Musica 1",
     artista: "Artista 1",
     src: musica1,
-    capa: "https://via.placeholder.com/300x300.png?text=Musica+1",
+    capa: capa1
   },
   {
     nome: "Musica 2",
     artista: "Artista 2",
     src: musica2,
-    capa: "https://via.placeholder.com/300x300.png?text=Musica+2",
+    capa: capa2
   },
   {
     nome: "Musica 3",
     artista: "Artista 3",
     src: musica3,
-    capa: "https://via.placeholder.com/300x300.png?text=Musica+3",
+    capa: capa3,
   },
 ];
 
@@ -86,7 +89,7 @@ export default function Player() {
       <img
         src={musicas[index].capa}
         alt={musicas[index].nome}
-        className="w-64 h-64 mx-auto rounded-xl mb-4 object-cover shadow-lg"
+        className="w-64 h-64 mx-auto rounded-full mb-4 object-cover shadow-lg"
       />
       
       <h2 className="text-2xl font-bold text-white">{musicas[index].nome}</h2>
