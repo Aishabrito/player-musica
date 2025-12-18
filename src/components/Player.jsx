@@ -8,20 +8,20 @@ import capa3 from "../assets/capa3.jpg";
 
 const musicas = [
   {
-    nome: "Musica 1",
-    artista: "Artista 1",
+    nome: "Echoes Between Walls",
+    artista: "Moon Static",
     src: musica1,
     capa: capa1
   },
   {
-    nome: "Musica 2",
-    artista: "Artista 2",
+    nome: "Lights Still On at 3AM",
+    artista: "Empty Hallways",
     src: musica2,
     capa: capa2
   },
   {
-    nome: "Musica 3",
-    artista: "Artista 3",
+    nome: "Letters I Never Sent",
+    artista: "Slow Tide",
     src: musica3,
     capa: capa3,
   },
@@ -36,7 +36,6 @@ export default function Player() {
 
   const audioRef = useRef(new Audio(musicas[0].src));
 
-  // Atualiza o audio quando muda a música ou play/pause
   useEffect(() => {
     const audio = audioRef.current;
     audio.src = musicas[index].src;
@@ -83,49 +82,71 @@ export default function Player() {
 
   return (
     <div 
-      
-      className="max-w-md mx-auto mt-10 p-6 bg-white/10 backdrop-blur-sm border-2 border-green-800 rounded-2xl shadow-2xl text-center"
+      className="
+        w-[90%] md:w-full max-w-md mx-auto 
+        mt-4 md:mt-10                      
+        p-4 md:p-8                          
+        bg-white/10 backdrop-blur-md 
+        border-[3px] border-green-800 
+        rounded-3xl shadow-2xl text-center
+        transition-all duration-300         
+      "
     >
       <img
         src={musicas[index].capa}
         alt={musicas[index].nome}
-        className="w-64 h-64 mx-auto rounded-full mb-4 object-cover shadow-lg"
+        className="
+          w-40 h-40 md:w-64 md:h-64        
+          mx-auto rounded-full mb-4 md:mb-6 
+          object-cover shadow-lg border-2 border-green-900
+          transition-all duration-300
+        "
       />
       
-      <h2 className="text-2xl font-bold text-white">{musicas[index].nome}</h2>
-      <p className="text-gray-300 mb-6">{musicas[index].artista}</p>
+      {/* Títulos  */}
+      <h2 className="text-xl md:text-3xl font-bold text-white truncate px-2">
+        {musicas[index].nome}
+      </h2>
+      <p className="text-sm md:text-lg text-gray-300 mb-4 md:mb-6">
+        {musicas[index].artista}
+      </p>
 
       {/* Barra de progresso */}
       <div className="mb-6 px-2">
         <div className="w-full bg-gray-600/50 rounded-full h-1.5 cursor-pointer">
            <div 
-             className="bg-cyan-400 h-1.5 rounded-full" 
+             className="bg-cyan-400 h-1.5 rounded-full relative" 
              style={{ width: `${(tempo / duracao) * 100}%` }}
-           ></div>
+           >
+              <div className="absolute right-0 -top-1 w-3 h-3 bg-white rounded-full shadow"></div>
+           </div>
         </div>
-        <div className="flex justify-between text-xs text-gray-300 mt-2 font-mono">
+        <div className="flex justify-between text-[10px] md:text-xs text-gray-300 mt-2 font-mono">
           <span>{formatTime(tempo)}</span>
           <span>{formatTime(duracao)}</span>
         </div>
       </div>
 
-      {/* Controles */}
-      <div className="flex justify-center items-center gap-4 mb-6">
+     {/* Controles */}
+      <div className="flex justify-center items-center gap-3 md:gap-6 mb-6">
         <button
           onClick={prev}
-          className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition backdrop-blur-sm"
+          className="bg-transparent hover:bg-white/10 text-white p-2 md:p-3 rounded-lg transition backdrop-blur-sm border-[1px] border-green-800"
         >
           ⏮️
         </button>
+
         <button
           onClick={togglePlay}
-          className="bg-cyan-500 hover:bg-cyan-400 text-white p-5 rounded-full shadow-lg shadow-cyan-500/50 transition transform hover:scale-105"
+          
+          className="bg-transparent hover:bg-white/10 text-white p-3 md:p-3 rounded-lg transition transform hover:scale-105 active:scale-95 border-[1px] border-green-800"
         >
           {tocando ? "⏸️" : "▶️"}
         </button>
+
         <button
           onClick={next}
-          className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition backdrop-blur-sm"
+          className="bg-transparent hover:bg-white/10 text-white p-2 md:p-3 rounded-lg transition backdrop-blur-sm border-[1px] border-green-800"
         >
           ⏭️
         </button>
@@ -133,10 +154,10 @@ export default function Player() {
 
       <button
         onClick={toggleShuffle}
-        className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${
+        className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition ${
           shuffle 
             ? "bg-purple-500/80 text-white shadow-purple-500/50" 
-            : "text-gray-400 hover:text-white"
+            : "text-gray-400 hover:text-white bg-white/5"
         }`}
       >
         Shuffle: {shuffle ? "ON" : "OFF"}
