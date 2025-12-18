@@ -118,7 +118,7 @@ export default function Player() {
       <div className="mb-6 px-2">
         <div className="w-full bg-gray-600/50 rounded-full h-1.5 cursor-pointer">
            <div 
-             className="bg-cyan-400 h-1.5 rounded-full relative" 
+             className="bg-green-800 h-1.5 rounded-full relative" 
              style={{ width: `${(tempo / duracao) * 100}%` }}
            >
               <div className="absolute right-0 -top-1 w-3 h-3 bg-white rounded-full shadow"></div>
