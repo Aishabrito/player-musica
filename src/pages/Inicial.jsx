@@ -16,9 +16,12 @@ export default function Inicial() {
     
       <button
         onClick={() => navigate("/player")}
-        className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl text-xl font-bold"
+        className="bg-green-800 hover:bg-green-600 text-white px-7 py-3 rounded-full text-xl font-bold"
       >
-        Conheça agora 🎵
+        Conheça agora <picture>
+          <source media="(min-width: )" srcset="" />
+          <img src="" alt="" />
+        </picture>
       </button>
     </div>
   );
