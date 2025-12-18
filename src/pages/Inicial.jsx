@@ -9,12 +9,11 @@ export default function Inicial() {
       className="min-h-screen flex flex-col items-center justify-center text-center px-4 bg-cover bg-center"
       style={{ backgroundImage: `url(${fundo})` }}
     >
-      <h1 className="text-6xl font-extrabold mb-6 text-white drop-shadow-lg">
-        Notas Ocultas
-      </h1>
-      <p className="text-lg text-white mb-10 max-w-xl drop-shadow-md">
-        Descubra músicas indie de artistas independentes.
-      </p>
+     <h1 style={{ fontFamily: "Caveat, cursive" }} className="text-9xl drop-shadow-2xl font-extrabold mb-6 text-white ">
+  Notas Ocultas
+</h1>
+<p className=" text-lg text-white mb-10 max-w-xl drop-shadow-md"> Descubra músicas indie de artistas independentes. </p>
+    
       <button
         onClick={() => navigate("/player")}
         className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl text-xl font-bold"
