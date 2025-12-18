@@ -79,51 +79,61 @@ export default function Player() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg text-center">
+    <div 
+      
+      className="max-w-md mx-auto mt-10 p-6 bg-white/10 backdrop-blur-sm border-2 border-green-800 rounded-2xl shadow-2xl text-center"
+    >
       <img
         src={musicas[index].capa}
         alt={musicas[index].nome}
-        className="w-64 h-64 mx-auto rounded-xl mb-4 object-cover"
+        className="w-64 h-64 mx-auto rounded-xl mb-4 object-cover shadow-lg"
       />
-      <h2 className="text-2xl font-bold">{musicas[index].nome}</h2>
-      <p className="text-gray-600 mb-4">{musicas[index].artista}</p>
+      
+      <h2 className="text-2xl font-bold text-white">{musicas[index].nome}</h2>
+      <p className="text-gray-300 mb-6">{musicas[index].artista}</p>
 
-      <div className="flex justify-center items-center mb-4">
+      {/* Barra de progresso */}
+      <div className="mb-6 px-2">
+        <div className="w-full bg-gray-600/50 rounded-full h-1.5 cursor-pointer">
+           <div 
+             className="bg-cyan-400 h-1.5 rounded-full" 
+             style={{ width: `${(tempo / duracao) * 100}%` }}
+           ></div>
+        </div>
+        <div className="flex justify-between text-xs text-gray-300 mt-2 font-mono">
+          <span>{formatTime(tempo)}</span>
+          <span>{formatTime(duracao)}</span>
+        </div>
+      </div>
+
+      {/* Controles */}
+      <div className="flex justify-center items-center gap-4 mb-6">
         <button
           onClick={prev}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl mx-1"
+          className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition backdrop-blur-sm"
         >
           ⏮️
         </button>
         <button
           onClick={togglePlay}
-          className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl mx-1"
+          className="bg-cyan-500 hover:bg-cyan-400 text-white p-5 rounded-full shadow-lg shadow-cyan-500/50 transition transform hover:scale-105"
         >
           {tocando ? "⏸️" : "▶️"}
         </button>
         <button
           onClick={next}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl mx-1"
+          className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition backdrop-blur-sm"
         >
           ⏭️
         </button>
       </div>
 
-      <div className="mb-2">
-        <progress
-          value={tempo}
-          max={duracao}
-          className="w-full h-2 rounded-full overflow-hidden"
-        />
-        <div className="text-sm text-gray-600 mt-1">
-          {formatTime(tempo)} / {formatTime(duracao)}
-        </div>
-      </div>
-
       <button
         onClick={toggleShuffle}
-        className={`px-4 py-2 rounded-xl mt-4 ${
-          shuffle ? "bg-blue-500 hover:bg-blue-600 text-white" : "bg-gray-300 hover:bg-gray-400"
+        className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${
+          shuffle 
+            ? "bg-purple-500/80 text-white shadow-purple-500/50" 
+            : "text-gray-400 hover:text-white"
         }`}
       >
         Shuffle: {shuffle ? "ON" : "OFF"}
