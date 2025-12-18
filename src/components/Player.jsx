@@ -1,4 +1,7 @@
 import { useState, useRef, useEffect } from "react";
+// Importando os ícones da biblioteca Lucide React
+import { Play, Pause, Rewind, FastForward, Shuffle } from "lucide-react";
+
 import musica1 from "../assets/musica1.mp3";
 import musica2 from "../assets/musica2.mp3";
 import musica3 from "../assets/musica3.mp3";
@@ -103,7 +106,7 @@ export default function Player() {
         "
       />
       
-      {/* Títulos  */}
+      {/* Títulos */}
       <h2 className="text-xl md:text-3xl font-bold text-white truncate px-2">
         {musicas[index].nome}
       </h2>
@@ -129,38 +132,46 @@ export default function Player() {
 
      {/* Controles */}
       <div className="flex justify-center items-center gap-3 md:gap-6 mb-6">
+        
+        {/* Botão Voltar */}
         <button
           onClick={prev}
-          className="bg-transparent hover:bg-white/10 text-white p-2 md:p-3 rounded-lg transition backdrop-blur-sm border-[1px] border-green-800"
+          className="bg-transparent hover:bg-white/10 text-green-800 p-2 md:p-3 rounded-lg transition backdrop-blur-sm border-[1px] border-green-800"
         >
-          ⏮️
+          <Rewind className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2} />
         </button>
 
+        {/* Botão Play/Pause */}
         <button
           onClick={togglePlay}
-          
-          className="bg-transparent hover:bg-white/10 text-white p-3 md:p-3 rounded-lg transition transform hover:scale-105 active:scale-95 border-[1px] border-green-800"
+          className="bg-transparent hover:bg-white/10 text-green-800 p-3 md:p-3 rounded-lg transition transform hover:scale-105 active:scale-95 border-[1px] border-green-800"
         >
-          {tocando ? "⏸️" : "▶️"}
+          {tocando ? (
+            <Pause className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
+          ) : (
+            <Play className="w-8 h-8 md:w-10 md:h-10 ml-1" strokeWidth={2} />
+          )}
         </button>
 
+        {/* Botão Avançar */}
         <button
           onClick={next}
-          className="bg-transparent hover:bg-white/10 text-white p-2 md:p-3 rounded-lg transition backdrop-blur-sm border-[1px] border-green-800"
+          className="bg-transparent hover:bg-white/10 text-green-800 p-2 md:p-3 rounded-lg transition backdrop-blur-sm border-[1px] border-green-800"
         >
-          ⏭️
+          <FastForward className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2} />
         </button>
       </div>
 
       <button
         onClick={toggleShuffle}
-        className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition ${
+        className={`flex items-center justify-center gap-2 mx-auto px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition ${
           shuffle 
-            ? "bg-purple-500/80 text-white shadow-purple-500/50" 
+            ? "bg-green-800/80 text-white shadow-purple-500/50" 
             : "text-gray-400 hover:text-white bg-white/5"
         }`}
       >
-        Shuffle: {shuffle ? "ON" : "OFF"}
+        <Shuffle size={14} />
+        Aleatório : {shuffle ? "ON" : "OFF"}
       </button>
     </div>
   );
