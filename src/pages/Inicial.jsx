@@ -1,12 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import fundo from "../assets/fundoinicial.png";
 
 export default function Inicial() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-center px-4">
-      <h1 className="text-6xl font-extrabold mb-6">Notas Ocultas</h1>
-      <p className="text-lg text-gray-700 mb-10 max-w-xl">
+    <div
+      className="min-h-screen flex flex-col items-center justify-center text-center px-4 bg-cover bg-center"
+      style={{ backgroundImage: `url(${fundo})` }}
+    >
+      <h1 className="text-6xl font-extrabold mb-6 text-white drop-shadow-lg">
+        Notas Ocultas
+      </h1>
+      <p className="text-lg text-white mb-10 max-w-xl drop-shadow-md">
         Descubra músicas indie de artistas independentes.
       </p>
       <button
