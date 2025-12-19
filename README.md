@@ -41,7 +41,7 @@ Pré-requisitos: Node.js instalado.
 
 ```bash
 # 1. Clone este repositório
-git clone [https://github.com/SEU-USUARIO/notas-ocultas.git](https://github.com/SEU-USUARIO/notas-ocultas.git)
+git clone [https://github.com/aisha-brito/notas-ocultas.git](https://github.com/aisha-brito/notas-ocultas.git)
 
 # 2. Entre na pasta
 cd notas-ocultas
